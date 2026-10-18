@@ -1,0 +1,38 @@
+[openstack-runtime]
+runtime = true
+seeds = [
+    "gunicorn",
+    "gunicorn-env-cfg",
+    "pymysql",
+    "oslo.messaging",
+    "oslo.privsep",
+    "oslo.rootwrap",
+]
+patched = ["oslo.privsep", "oslo.rootwrap", "oslo.messaging"]
+
+[openstack-client]
+package = "python-openstackclient"
+
+[openstack-keystone]
+package = "keystone"
+
+[openstack-placement]
+package = "openstack-placement"
+
+[openstack-glance]
+package = "glance"
+
+[openstack-cinder]
+package = "cinder"
+
+[openstack-nova]
+package = "nova"
+
+[openstack-neutron]
+package = "neutron"
+
+[openstack-designate]
+package = "designate"
+
+[openstack-horizon]
+package = "horizon"
