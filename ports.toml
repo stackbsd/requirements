@@ -34,5 +34,8 @@ package = "neutron"
 [openstack-designate]
 package = "designate"
 
+[openstack-ironic]
+package = "ironic"
+
 [openstack-horizon]
 package = "horizon"
