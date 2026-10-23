@@ -738,7 +738,7 @@ def load_manifest(path, available, errors):
                     "kind": SERVICE,
                     "package": crates.normalized(cfg["package"]),
                     "seeds": [],
-                    "patched": set(),
+                    "patched": {crates.normalized(s) for s in cfg.get("patched", [])},
                 }
             )
         else:

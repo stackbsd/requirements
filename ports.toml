@@ -36,3 +36,4 @@ package = "designate"
 
 [openstack-horizon]
 package = "horizon"
+patched = ["horizon"]
