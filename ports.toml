@@ -39,3 +39,4 @@ package = "ironic"
 
 [openstack-horizon]
 package = "horizon"
+patched = ["horizon"]
