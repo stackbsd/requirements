@@ -3373,6 +3373,15 @@ wheels = [
 ]
 
 [[package]]
+name = "python-memcached"
+version = "1.62"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e8/3c/204e5c6087efc85b52a68edce8678d44eb28718f5f145e036c277beb467c/python-memcached-1.62.tar.gz", hash = "sha256:0285470599b7f593fbf3bec084daa1f483221e68c1db2cf1d846a9f7c2655103", size = 28591, upload-time = "2024-01-14T15:56:03.134Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8f/1b/3b15a37831ae34a264d7d5b71f3ae9fe74a81251453a3ec2135e76888ef1/python_memcached-1.62-py2.py3-none-any.whl", hash = "sha256:1bdd8d2393ff53e80cd5e9442d750e658e0b35c3eebb3211af137303e3b729d1", size = 15136, upload-time = "2024-01-14T15:56:01.725Z" },
+]
+
+[[package]]
 name = "python-neutronclient"
 version = "11.8.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3598,6 +3607,7 @@ dependencies = [
     { name = "oslo-rootwrap" },
     { name = "pymemcache" },
     { name = "pymysql" },
+    { name = "python-memcached" },
     { name = "python-openstackclient" },
 ]
 
@@ -3633,6 +3643,7 @@ requires-dist = [
     { name = "oslo-rootwrap" },
     { name = "pymemcache" },
     { name = "pymysql", specifier = ">=1.1.2" },
+    { name = "python-memcached" },
     { name = "python-openstackclient", specifier = "==9.0.0" },
 ]
 

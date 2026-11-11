@@ -5,6 +5,7 @@ seeds = [
     "gunicorn-env-cfg",
     "pymysql",
     "pymemcache",
+    "python-memcached",
     "oslo.messaging",
     "oslo.privsep",
     "oslo.rootwrap",
