@@ -3157,6 +3157,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pymemcache"
+version = "4.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d9/b6/4541b664aeaad025dfb8e851dcddf8e25ab22607e674dd2b562ea3e3586f/pymemcache-4.0.0.tar.gz", hash = "sha256:27bf9bd1bbc1e20f83633208620d56de50f14185055e49504f4f5e94e94aff94", size = 70176, upload-time = "2022-10-17T16:53:07.726Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/41/ba/2f7b22d8135b51c4fefb041461f8431e1908778e6539ff5af6eeaaee367a/pymemcache-4.0.0-py2.py3-none-any.whl", hash = "sha256:f507bc20e0dc8d562f8df9d872107a278df049fa496805c1431b926f3ddd0eab", size = 60772, upload-time = "2022-10-17T16:53:04.388Z" },
+]
+
+[[package]]
 name = "pymysql"
 version = "1.1.2"
 source = { registry = "https://pypi.org/simple" }
@@ -3361,6 +3370,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/97/ef/c8c68219a2bf9f296ad18cb0b9804c45adfdceee72d51684225488746262/python_keystoneclient-5.8.0.tar.gz", hash = "sha256:3ca87c67c404298ce862310b569f545a58acf75cd5685094c82f35320b3a355d", size = 322844, upload-time = "2026-02-27T15:36:24.33Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/be/35/483db648710bd0aeefd505db288490c229fef0e1fb7b78d8f277e2dc375b/python_keystoneclient-5.8.0-py3-none-any.whl", hash = "sha256:0cc96cc719bbd8b1ca8fda71e38017dba3e87ebe3b479fcc9261a67e30b21b85", size = 397325, upload-time = "2026-02-27T15:36:23.21Z" },
+]
+
+[[package]]
+name = "python-memcached"
+version = "1.62"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e8/3c/204e5c6087efc85b52a68edce8678d44eb28718f5f145e036c277beb467c/python-memcached-1.62.tar.gz", hash = "sha256:0285470599b7f593fbf3bec084daa1f483221e68c1db2cf1d846a9f7c2655103", size = 28591, upload-time = "2024-01-14T15:56:03.134Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8f/1b/3b15a37831ae34a264d7d5b71f3ae9fe74a81251453a3ec2135e76888ef1/python_memcached-1.62-py2.py3-none-any.whl", hash = "sha256:1bdd8d2393ff53e80cd5e9442d750e658e0b35c3eebb3211af137303e3b729d1", size = 15136, upload-time = "2024-01-14T15:56:01.725Z" },
 ]
 
 [[package]]
@@ -3587,7 +3605,9 @@ dependencies = [
     { name = "oslo-messaging" },
     { name = "oslo-privsep" },
     { name = "oslo-rootwrap" },
+    { name = "pymemcache" },
     { name = "pymysql" },
+    { name = "python-memcached" },
     { name = "python-openstackclient" },
 ]
 
@@ -3621,7 +3641,9 @@ requires-dist = [
     { name = "oslo-messaging" },
     { name = "oslo-privsep" },
     { name = "oslo-rootwrap" },
+    { name = "pymemcache" },
     { name = "pymysql", specifier = ">=1.1.2" },
+    { name = "python-memcached" },
     { name = "python-openstackclient", specifier = "==9.0.0" },
 ]
 

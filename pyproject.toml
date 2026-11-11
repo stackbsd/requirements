@@ -16,6 +16,8 @@ dependencies = [
     "python-openstackclient==9.0.0",
     "horizon==25.7.3",
     "pymysql>=1.1.2",
+    "pymemcache",
+    "python-memcached",
     "gunicorn-env-cfg==1.0.0",
     "oslo.messaging",
     "oslo.privsep",
