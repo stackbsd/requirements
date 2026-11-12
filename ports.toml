@@ -33,6 +33,10 @@ package = "nova"
 [openstack-neutron]
 package = "neutron"
 
+[neutron-dynamic-routing]
+package = "neutron-dynamic-routing"
+requires = ["neutron"]
+
 [openstack-designate]
 package = "designate"
 

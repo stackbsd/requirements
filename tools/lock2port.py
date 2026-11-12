@@ -134,7 +134,7 @@ def edge_nodes(edge, index, env):
     return [(target, extras) for target in edge_targets(edge, index, env)]
 
 
-def walk(seeds, index, env, passthrough=frozenset(), violations=None):
+def walk(seeds, index, env, passthrough=frozenset(), violations=None, stop=frozenset()):
     """Return entry keys reachable from seed nodes in one environment."""
     stack = list(seeds)
     visited = set()
@@ -142,7 +142,7 @@ def walk(seeds, index, env, passthrough=frozenset(), violations=None):
     while stack:
         package, extras = stack.pop()
         node = (entry_key(package), extras)
-        if node in visited:
+        if node in visited or package["name"] in stop:
             continue
         visited.add(node)
         through = package["name"] in passthrough
@@ -201,7 +201,7 @@ def reachable(
     return walk(nodes, index, env, passthrough, violations)
 
 
-def partition(packages, index, environments, seeds, services, violations):
+def partition(packages, index, environments, seeds, services, violations, requires):
     """Return per-environment closure keys for the runtime and each service."""
     shared = set()
     own = {service: [] for service in services}
@@ -213,10 +213,16 @@ def partition(packages, index, environments, seeds, services, violations):
                 closure_seeds(packages, index, env, {service}),
                 index,
                 env,
-                services - {service},
+                services - {service} - requires[service],
                 violations,
+                requires[service],
             )
             for service in services
+        }
+        # a required service port already ships its own closure
+        closures = {
+            service: keys.difference(*(closures[r] for r in requires[service]))
+            for service, keys in closures.items()
         }
         counts = collections.Counter(k for keys in closures.values() for k in keys)
         shared |= base | {k for k, n in counts.items() if n > 1}
@@ -725,6 +731,7 @@ def load_manifest(path, available, errors):
                     "package": crates.normalized(cfg["package"]),
                     "seeds": [],
                     "patched": {crates.normalized(s) for s in cfg.get("patched", [])},
+                    "requires": {crates.normalized(s) for s in cfg.get("requires", [])},
                 }
             )
         else:
@@ -746,6 +753,13 @@ def load_manifest(path, available, errors):
         elif name in owner:
             errors.append(f"{name}: claimed by both {owner[name]} and {label}")
         owner[name] = label
+    packages = {spec["package"] for spec in services}
+    for spec in services:
+        for name in sorted(spec["requires"] - packages):
+            errors.append(
+                f"port {spec['label']}: required package {name} is not a service "
+                "package in the manifest"
+            )
     for name in available:
         if name not in owner:
             errors.append(
@@ -784,6 +798,7 @@ def main(argv=None):
             specs[0]["seeds"],
             services,
             violations,
+            {spec["package"]: spec["requires"] for spec in specs[1:]},
         )
         for source, target in sorted(violations):
             errors.append(
