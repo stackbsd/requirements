@@ -67,8 +67,8 @@ jobs:
           release: ${{ inputs.release }}
           cache-after-prepare: true
           prepare: |
-            pkg install -y python312 py312-sqlite3 rust pkgconf libffi libxml2 \
-              libxslt libyaml
+            pkg install -y python312 py312-sqlite3 rust pkgconf ninja libffi \
+              libxml2 libxslt libyaml openblas
             python3.12 -m venv /opt/venv
       - name: Build wheels
         if: steps.wheels.outputs.cache-hit != 'true'
