@@ -53,6 +53,8 @@ jobs:
         run: >
           uv export --project .ci/requirements --frozen --no-hashes
           --no-emit-project -o .ci/constraints.txt
+      - name: Build the wheel
+        run: uv build --wheel -o .ci/dist
       - name: Restore wheels
         id: wheels
         uses: actions/cache/restore@v6
@@ -82,11 +84,12 @@ jobs:
           key: ${{ steps.wheels.outputs.cache-primary-key }}
       - name: Install
         shell: freebsd {0}
-        run: >
-          /opt/venv/bin/pip install --no-index --find-links .ci/wheels
-          -c .ci/constraints.txt ${{ inputs.packages }}
+        run: |
+          /opt/venv/bin/pip install --no-index --find-links .ci/wheels \
+            -c .ci/constraints.txt ${{ inputs.packages }}
+          /opt/venv/bin/pip install --no-index --no-deps .ci/dist/*.whl
       - name: Test
         shell: freebsd {0}
         run: |
-          export PATH=/opt/venv/bin:$PATH PYTHONPATH=src
+          export PATH=/opt/venv/bin:$PATH
           ${{ inputs.test }}
