@@ -55,7 +55,7 @@ jobs:
           --no-emit-project -o .ci/constraints.txt
       - name: Restore wheels
         id: wheels
-        uses: actions/cache@v6
+        uses: actions/cache/restore@v6
         with:
           path: .ci/wheels
           key: wheels-${{ inputs.release }}-${{ inputs.packages }}-${{ hashFiles('.ci/requirements/uv.lock') }}
@@ -65,7 +65,8 @@ jobs:
           release: ${{ inputs.release }}
           cache-after-prepare: true
           prepare: |
-            pkg install -y python312 rust pkgconf libffi libxml2 libxslt libyaml
+            pkg install -y python312 py312-sqlite3 rust pkgconf libffi libxml2 \
+              libxslt libyaml
             python3.12 -m venv /opt/venv
       - name: Build wheels
         if: steps.wheels.outputs.cache-hit != 'true'
@@ -73,6 +74,12 @@ jobs:
         run: >
           /opt/venv/bin/pip wheel --wheel-dir .ci/wheels
           -c .ci/constraints.txt ${{ inputs.packages }}
+      - name: Save wheels
+        if: steps.wheels.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: .ci/wheels
+          key: ${{ steps.wheels.outputs.cache-primary-key }}
       - name: Install
         shell: freebsd {0}
         run: >
