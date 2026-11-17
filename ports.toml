@@ -10,7 +10,7 @@ seeds = [
     "oslo.privsep",
     "oslo.rootwrap",
 ]
-patched = ["oslo.privsep", "oslo.rootwrap", "oslo.messaging"]
+patched = ["oslo.privsep", "oslo.rootwrap", "oslo.messaging", "os-brick"]
 
 [openstack-client]
 package = "python-openstackclient"
